@@ -51,7 +51,6 @@ class TestATM(unittest.TestCase):
 
         self.keypad_mock.read = mock.MagicMock(return_value=wrong_pin)
         self.assertFalse(self.atm.read_and_validate_pin())
-        print(self.keypad_mock.read.call_count)
         self.assertEqual(self.keypad_mock.read.call_count, ATM.MAX_RETRY_PIN)
 
     def test_select_account(self):
@@ -61,7 +60,6 @@ class TestATM(unittest.TestCase):
         selected_number = 0
         self.keypad_mock.read = mock.MagicMock(return_value=selected_number)
         self.atm.select_account()
-        print(f"test_select_account:cur_account_num={self.atm.current_account_num}")
         self.assertEqual(self.atm.current_account_num, account_numbers[selected_number])
 
         # reset account_number
@@ -69,7 +67,6 @@ class TestATM(unittest.TestCase):
         selected_number = 1
         self.keypad_mock.read = mock.MagicMock(return_value=selected_number)
         self.atm.select_account()
-        print(f"test_select_account:cur_account_num={self.atm.current_account_num}")
         self.assertEqual(self.atm.current_account_num, account_numbers[selected_number])
 
     def test_get_operation_menu(self):
